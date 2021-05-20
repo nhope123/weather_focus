@@ -2,9 +2,9 @@ import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
 
 const axios = require('axios').default;
 
-const CELCIUS = 'Celcius';
+export const CELCIUS = 'Celcius';
 const FAHRENHEIT = 'Fahrenheit';
-const URL = 'https://weather-proxy.freecodecamp.rocks/api/current?lat=43.7001100&lon=-79.4163000';
+const URL = 'https://weather-proxy.freecodecamp.rocks/api/current?';
 
 const initialState = {
   data:{
@@ -37,12 +37,22 @@ const convert = (value, aString) => {
   }
 };
 
+// Format time
+const getTime = (secs) =>{
+  var time = new Date(secs * 1000)
+  var result = (time.getHours() > 12)? `${time.getHours()%12}:${time.getMinutes()}pm`:
+                `${time.getHours()}:${time.getMinutes()}am`;
+  return result;
+}
+
 // Fetching weather data
 export const fetchData = createAsyncThunk(
   'weather/dataStatus',
   async (arg, thunkApi)=>{
-    const response = await axios.get(URL)
-    return response
+    let response;
+    response =  await axios.get(`${URL}lat=${arg[0]}&lon=${arg[1]}`)
+
+    return await response
   }
 );
 
@@ -62,10 +72,6 @@ export const weatherSlice = createSlice({
   extraReducers:{
     [fetchData.fulfilled]: (state, action)=>{
       const data = action.payload.data;
-      console.log(data);
-      //console.log(new Date(data.sys.sunrise + data.timezone).getHours() % 12);
-      //console.log(new Date(data.sys.sunset - data.timezone).getHours() % 12);
-      //console.log(`${data.name},${data.sys.country}`);
       state.data.location = `${data.name},${data.sys.country}`;
       state.data.description = data.weather[0].description;
       state.data.icon = data.weather[0].icon;
@@ -73,12 +79,8 @@ export const weatherSlice = createSlice({
       state.data.feelTemperature = Math.round(data.main.feels_like);
       state.data.minTemperature = Math.round(data.main.temp_min);
       state.data.maxTemperature = Math.round(data.main.temp_max);
-
-      // BUG: Have to solve the timezone issue
-      state.data.sunrise = data.sys.sunrise;
-      state.data.sunset = data.sys.sunset;
-
-
+      state.data.sunrise = getTime(data.sys.sunrise);
+      state.data.sunset = getTime(data.sys.sunset);
     },
     [fetchData.rejected]: (state, action)=>{
       console.log(action.error.message);
