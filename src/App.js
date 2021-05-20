@@ -26,28 +26,35 @@ class App extends Component {
     let symbol = (this.props.temperatureUnit === CELCIUS)? 'C': 'F';
     return (
       <div className={'main-container'} >
+      
         <div><h1>Weather Focus</h1></div>
         <div className={'app-container'} >
-          <div >{`Location:${this.props.location}`}</div>
+
           <div >
-            <div tabIndex={'0'} onClick={this.props.convert} >{`Temperature:${this.props.currentTemperature}°${symbol}`}</div>
+            <div >{this.props.location}</div>
+            <div >{this.props.time}</div>
+          </div>
+          <div >
+            <div tabIndex={'0'} onClick={this.props.convert} >
+                      {`${this.props.currentTemperature}°${symbol}`}
+            </div>
             <div >
-              <img src={this.props.icon} alt={'Weather Forcast'} />
+              <img src={this.props.icon} alt={'Weather Forcast'} styles={{width:56,height:56}} />
               <div>{this.props.description}</div>
             </div>
             <div >
-              <div >{`Feels Like: ${this.props.feelTemperature}°${symbol}`} </div>
+              <div >{`Feels like ${this.props.feelTemperature}°${symbol}`} </div>
               <div > {`${this.props.maxTemperature}°/${this.props.minTemperature}°`}</div>
             </div>
             <div >
 
               <div >
-                <img src={dayIcon} alt={'Day and nigth icon'} />
+                {/*  <img src={dayIcon} alt={'Day and nigth icon'} styles={{width:1,height:1}}/> */}
               </div>
               <div > {`${this.props.sunrise} | ${this.props.sunset}`} </div>
             </div>
             <div >
-              <img src={refreshIcon} alt={'Refresh button'} tabIndex={'0'} onClick={()=>this.getdata()} />
+              {/*  <img src={refreshIcon} alt={'Refresh button'} tabIndex={'0'} onClick={()=>this.getdata()} styles={{width:1,height:1}}/>  */}
             </div>
           </div>
         </div>
@@ -70,6 +77,7 @@ const mapStateToProps = (state)=>{
     maxTemperature: state.data.maxTemperature,
     sunrise: state.data.sunrise,
     sunset: state.data.sunset,
+    time: state.data.localtime,
     temperatureUnit: state.temperatureUnit
   }
 }

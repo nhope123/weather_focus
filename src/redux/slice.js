@@ -5,10 +5,14 @@ const axios = require('axios').default;
 export const CELCIUS = 'Celcius';
 const FAHRENHEIT = 'Fahrenheit';
 const URL = 'https://weather-proxy.freecodecamp.rocks/api/current?';
+const DAYS = ['Sun', 'Mon','Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
 
 const initialState = {
   data:{
     location: '',
+    localtime: '',
     description: '',
     currentTemperature: 25,
     icon: '',
@@ -38,11 +42,16 @@ const convert = (value, aString) => {
 };
 
 // Format time
-const getTime = (secs) =>{
-  var time = new Date(secs * 1000)
+const getTime = (time) =>{
   var result = (time.getHours() > 12)? `${time.getHours()%12}:${time.getMinutes()}pm`:
                 `${time.getHours()}:${time.getMinutes()}am`;
   return result;
+}
+
+// Format the date and time for MM DD YYYY HH:MM
+const getDateTime = ()=>{
+  const instance = new Date();
+  return `${DAYS[instance.getDay()]} ${MONTHS[instance.getMonth()]} ${instance.getDate()}, ${instance.getFullYear()} ${getTime(instance)}`
 }
 
 // Fetching weather data
@@ -79,8 +88,9 @@ export const weatherSlice = createSlice({
       state.data.feelTemperature = Math.round(data.main.feels_like);
       state.data.minTemperature = Math.round(data.main.temp_min);
       state.data.maxTemperature = Math.round(data.main.temp_max);
-      state.data.sunrise = getTime(data.sys.sunrise);
-      state.data.sunset = getTime(data.sys.sunset);
+      state.data.sunrise = getTime(new Date(data.sys.sunrise * 1000));
+      state.data.sunset = getTime(new Date(data.sys.sunset * 1000));
+      state.data.localtime = getDateTime();
     },
     [fetchData.rejected]: (state, action)=>{
       console.log(action.error.message);
