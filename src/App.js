@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators}from 'redux';
-import  {fetchData, convert}  from './redux/slice';
+//import  {fetchData, convert}  from './redux/slice';
+import  {tempConvert, fetchData}  from './redux/slice';
 
 class App extends Component {
   componentDidMount(){
@@ -13,14 +14,14 @@ class App extends Component {
       <div className={'main-container'} >
         <div><h1>Weather Focus</h1></div>
         <div className={'app-container'} >
-          <div >Location:</div>
+          <div >{`Location:${this.props.location}`}</div>
           <div >
-            <div tabIndex={'0'} >Temperature</div>
+            <div tabIndex={'0'} >{`Temperature:${this.props.currentTemperature}`}</div>
             <div >
-              <img src={''} alt={'Weather Forcast'} />
+              <img src={this.props.icon} alt={'Weather Forcast'} />
             </div>
             <div >
-              <div >Feels Like: </div>
+              <div >{`Feels Like: ${this.props.feelTemperature}`} </div>
               <div > Hihs and lows</div>
             </div>
             <div >
@@ -38,7 +39,7 @@ class App extends Component {
               </div>
             </div>
             <div >
-              <span tabIndex={'0'} onClick={this.props.fetchData}> refresh button</span>
+              <span tabIndex={'0'} onClick={this.props.convert}> refresh button</span>
             </div>
           </div>
         </div>
@@ -50,13 +51,27 @@ class App extends Component {
   }
 }
 
+const mapStateToProps = (state)=>{
+  return {
+    location: state.data.location,
+    currentTemperature:state.data.currentTemperature,
+    icon: state.data.icon,
+    feelTemperature: state.data.feelTemperature,
+    minTemperature: state.data.minTemperature,
+    maxTemperature: state.data.maxTemperature,
+    sunrise: state.data.sunrise,
+    sunset: state.data.sunset,
+    temperatureUnit: state.temperatureUnit
+  }
+}
 
 const mapDispatchToProps = (dispatch)=>{
   return bindActionCreators({
-    fetchData: fetchData
+    fetchData: fetchData,
+    convert: tempConvert
     },
     dispatch
   );
 }
 
-export default connect(null,mapDispatchToProps)(App);
+export default connect(mapStateToProps,mapDispatchToProps)(App);
