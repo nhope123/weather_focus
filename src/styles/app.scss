@@ -95,6 +95,9 @@ body,.main-container{
       @include display-position(flex,relative);
       @include flex-attribute(column, center, center);
       @include dimension(100%);
+      div{
+        padding-bottom: 7px;
+      }
     }
 
     img{
