@@ -1,0 +1,49 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&family=Roboto+Slab&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Original+Surfer&family=Rokkitt&display=swap');
+/*
+font-family: 'Roboto Mono', monospace;
+font-family: 'Roboto Slab', serif;
+font-family: 'Original Surfer', cursive;
+font-family: 'Rokkitt', serif;
+*/
+
+$breakpoint-sm: 576px; /* Small devices (portrait tablets and large phones, 576px and up) */
+$breakpoint-md: 768px; /* Medium devices (landscape tablets, 768px and up) */
+$breakpoint-lg: 992px; /* Large devices (laptops/desktops, 992px and up) */
+$breakpoint-xl: 1200px; /* Extra large devices (large laptops and desktops, 1200px and up) */
+
+$primary: #6ae0f8;
+$white: #000;
+$danger: #e51c23;
+
+$icon-Size: 60px;
+
+@mixin display-position($display,$position){
+  display: $display;
+  position: $position;
+}
+
+@mixin dimension($width,$height: auto){
+  width: $width;
+  height: $height;
+}
+
+@mixin m-box-shadow($value){
+  -webkit-box-shadow: $value;
+  -moz-box-shadow: $value;
+  box-shadow: $value;
+}
+
+// Display flex direction, justify, and align attributes
+@mixin flex-attribute($direction,$justify,$align) {
+  flex-direction: $direction;
+  justify-content: $justify;
+  align-items: $align;
+}
+
+@mixin gradient-background(){
+  background: #0E040D;
+  background: -moz-linear-gradient(top, #0E040D 0%, #3789F6 41%, #B9893E 100%);
+  background: -webkit-linear-gradient(top, #0E040D 0%, #3789F6 41%, #B9893E 100%);
+  background: linear-gradient(to bottom, #0E040D 0%, #3789F6 41%, #B9893E 100%);
+}

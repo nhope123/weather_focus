@@ -3,7 +3,8 @@ import {connect} from 'react-redux';
 import {bindActionCreators}from 'redux';
 
 import  {tempConvert, fetchData, CELCIUS}  from './redux/slice';
-import dayIcon from './assets/day_icon.png';
+import {TopDisplay, BottomDisplay} from './pieces.js';
+
 import refreshIcon from './assets/refresh.png';
 
 class App extends Component {
@@ -23,45 +24,46 @@ class App extends Component {
   }
 
   render() {
-    let symbol = (this.props.temperatureUnit === CELCIUS)? 'C': 'F';
+    let topvalues = { location: this.props.location, icon: this.props.icon,
+                      description: this.props.description, convert:this.props.convert,
+                      currentTemperature:this.props.currentTemperature,
+                      maxTemperature:this.props.maxTemperature,
+                      minTemperature:this.props.minTemperature,
+                      feelTemperature:this.props.feelTemperature
+                    };
+    let bottomvalues = { sunrise: this.props.sunrise, sunset: this.props.sunset,
+                         time: this.props.time
+                       };
+
     return (
+
       <div className={'main-container'} >
-      
-        <div><h1>Weather Focus</h1></div>
+        {/*App Header */}
+        <div className={'app-name'}><h1>Weather </h1><h3>⚡</h3><h1> Focus</h1></div>
+
+        {/*Container holding the app  */}
+        {/* Bug */}
         <div className={'app-container'} >
 
-          <div >
-            <div >{this.props.location}</div>
-            <div >{this.props.time}</div>
+          {/*Top Display  */}
+          <TopDisplay {...topvalues} />
+
+          {/*Bottom Display  */}
+          <BottomDisplay {...bottomvalues} />
+
+          {/* Reset button */}
+          <div className={'reset'} tabIndex={'0'} >
+            <img tabIndex={'0'} src={refreshIcon} alt={'Reset icon'} />
           </div>
-          <div >
-            <div tabIndex={'0'} onClick={this.props.convert} >
-                      {`${this.props.currentTemperature}°${symbol}`}
-            </div>
-            <div >
-              <img src={this.props.icon} alt={'Weather Forcast'} styles={{width:56,height:56}} />
-              <div>{this.props.description}</div>
-            </div>
-            <div >
-              <div >{`Feels like ${this.props.feelTemperature}°${symbol}`} </div>
-              <div > {`${this.props.maxTemperature}°/${this.props.minTemperature}°`}</div>
-            </div>
-            <div >
-
-              <div >
-                {/*  <img src={dayIcon} alt={'Day and nigth icon'} styles={{width:1,height:1}}/> */}
-              </div>
-              <div > {`${this.props.sunrise} | ${this.props.sunset}`} </div>
-            </div>
-            <div >
-              {/*  <img src={refreshIcon} alt={'Refresh button'} tabIndex={'0'} onClick={()=>this.getdata()} styles={{width:1,height:1}}/>  */}
-            </div>
-          </div>
-        </div>
-        <div><a href={'https://github.com/nhope123/weather_focus'} rel={"noreferrer"} tabIndex={'0'} target={'_blank'}>Nial</a> &copy; 2021</div>
-
-
       </div>
+      <div className={'footer'}>
+        <a href={'https://github.com/nhope123/weather_focus'} rel={"noreferrer"}
+            tabIndex={'0'} target={'_blank'}>
+            {'Nial '}
+        </a>
+        &copy; 2021
+      </div>
+    </div >
     )
   }
 }

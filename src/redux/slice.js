@@ -14,11 +14,11 @@ const initialState = {
     location: '',
     localtime: '',
     description: '',
-    currentTemperature: 25,
+    currentTemperature: '',
     icon: '',
-    feelTemperature: 20,
-    minTemperature: 6,
-    maxTemperature: 32,
+    feelTemperature: '',
+    minTemperature: '',
+    maxTemperature: '',
     sunrise: '',
     sunset: '',
   },
@@ -43,15 +43,17 @@ const convert = (value, aString) => {
 
 // Format time
 const getTime = (time) =>{
-  var result = (time.getHours() > 12)? `${time.getHours()%12}:${time.getMinutes()}pm`:
-                `${time.getHours()}:${time.getMinutes()}am`;
+  var result = (time.getHours() >= 12)?
+                    (time.getHours()%12 === 0)? `12:${time.getMinutes()}pm`:
+                    `${time.getHours()%12}:${time.getMinutes()}pm`:
+                (time.getHours() === 0)? `12:${time.getMinutes()}am`: `${time.getHours()}:${time.getMinutes()}am`;
   return result;
 }
 
 // Format the date and time for MM DD YYYY HH:MM
 const getDateTime = ()=>{
   const instance = new Date();
-  return `${DAYS[instance.getDay()]} ${MONTHS[instance.getMonth()]} ${instance.getDate()}, ${instance.getFullYear()} ${getTime(instance)}`
+  return `${MONTHS[instance.getMonth()]} ${instance.getDate()}, ${instance.getFullYear()};${DAYS[instance.getDay()]} ${getTime(instance)}`
 }
 
 // Fetching weather data
