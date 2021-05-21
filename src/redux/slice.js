@@ -21,6 +21,7 @@ const initialState = {
     maxTemperature: '',
     sunrise: '',
     sunset: '',
+    coords: {},
   },
   temperatureUnit: CELCIUS
 };
@@ -93,6 +94,8 @@ export const weatherSlice = createSlice({
       state.data.sunrise = getTime(new Date(data.sys.sunrise * 1000));
       state.data.sunset = getTime(new Date(data.sys.sunset * 1000));
       state.data.localtime = getDateTime();
+      state.data.coords = data.coord;
+
     },
     [fetchData.rejected]: (state, action)=>{
       console.log(action.error.message);

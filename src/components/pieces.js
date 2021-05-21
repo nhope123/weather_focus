@@ -1,6 +1,6 @@
 import React from 'react';
 
-import dayIcon from './assets/day_icon.png';
+import dayIcon from './../assets/day_icon.png';
 
 // Top half of the Display
 export function TopDisplay(props) {

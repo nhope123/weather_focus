@@ -2,27 +2,11 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators}from 'redux';
 
-import  {tempConvert, fetchData, CELCIUS}  from './redux/slice';
+import  {tempConvert}  from './../redux/slice';
 import {TopDisplay, BottomDisplay} from './pieces.js';
+import refreshIcon from './../assets/refresh.png';
 
-import refreshIcon from './assets/refresh.png';
-
-class App extends Component {
-  constructor(props){
-    super(props)
-    this.getdata = this.getdata.bind(this);
-  }
-
-  componentDidMount(){
-    this.getdata()
-  }
-
-  getdata(){
-    navigator.geolocation.getCurrentPosition( (points)=>{
-      this.props.fetchData([points.coords.latitude,points.coords.longitude])
-    })
-  }
-
+class Dashboard extends Component {
   render() {
     let topvalues = { location: this.props.location, icon: this.props.icon,
                       description: this.props.description, convert:this.props.convert,
@@ -36,13 +20,6 @@ class App extends Component {
                        };
 
     return (
-
-      <div className={'main-container'} >
-        {/*App Header */}
-        <div className={'app-name'}><h1>Weather </h1><h3>⚡</h3><h1> Focus</h1></div>
-
-        {/*Container holding the app  */}
-        {/* Bug */}
         <div className={'app-container'} >
 
           {/*Top Display  */}
@@ -52,18 +29,10 @@ class App extends Component {
           <BottomDisplay {...bottomvalues} />
 
           {/* Reset button */}
-          <div className={'reset'} tabIndex={'0'} >
+          <div className={'reset'} tabIndex={'0'} onClick={this.props.callback} >
             <img tabIndex={'0'} src={refreshIcon} alt={'Reset icon'} />
           </div>
       </div>
-      <div className={'footer'}>
-        <a href={'https://github.com/nhope123/weather_focus'} rel={"noreferrer"}
-            tabIndex={'0'} target={'_blank'}>
-            {'Nial '}
-        </a>
-        &copy; 2021
-      </div>
-    </div >
     )
   }
 }
@@ -86,11 +55,10 @@ const mapStateToProps = (state)=>{
 
 const mapDispatchToProps = (dispatch)=>{
   return bindActionCreators({
-    fetchData: fetchData,
     convert: tempConvert
     },
     dispatch
   );
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(App);
+export default connect(mapStateToProps,mapDispatchToProps)(Dashboard);
