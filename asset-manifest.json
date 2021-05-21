@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/weather_focus/static/css/main.14175c7e.chunk.css",
+    "main.js": "/weather_focus/static/js/main.1582897a.chunk.js",
+    "main.js.map": "/weather_focus/static/js/main.1582897a.chunk.js.map",
+    "runtime-main.js": "/weather_focus/static/js/runtime-main.3928b761.js",
+    "runtime-main.js.map": "/weather_focus/static/js/runtime-main.3928b761.js.map",
+    "static/js/2.2ef0888b.chunk.js": "/weather_focus/static/js/2.2ef0888b.chunk.js",
+    "static/js/2.2ef0888b.chunk.js.map": "/weather_focus/static/js/2.2ef0888b.chunk.js.map",
+    "static/js/3.74ebdde5.chunk.js": "/weather_focus/static/js/3.74ebdde5.chunk.js",
+    "static/js/3.74ebdde5.chunk.js.map": "/weather_focus/static/js/3.74ebdde5.chunk.js.map",
+    "index.html": "/weather_focus/index.html",
+    "static/css/main.14175c7e.chunk.css.map": "/weather_focus/static/css/main.14175c7e.chunk.css.map",
+    "static/js/2.2ef0888b.chunk.js.LICENSE.txt": "/weather_focus/static/js/2.2ef0888b.chunk.js.LICENSE.txt",
+    "static/media/refresh.13969bce.png": "/weather_focus/static/media/refresh.13969bce.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.3928b761.js",
+    "static/js/2.2ef0888b.chunk.js",
+    "static/css/main.14175c7e.chunk.css",
+    "static/js/main.1582897a.chunk.js"
+  ]
+}
