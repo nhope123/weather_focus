@@ -4,7 +4,7 @@ A location base weather service web application.
 
 ## functionality
 1. Using geolocation, rechieve data from [freecodecamp](https://weather-proxy.freecodecamp.rocks/) weather Api.
-2. On clicking the current temperature, all temperature of the app alternate between Celcius and Fahrenheit.
+2. On clicking the current temperature, all temperature of the app alternate between Celsius and Fahrenheit.
 3. The refresh button update the loaction and  temperature.
 
 ## Implimentation
